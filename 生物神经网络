@@ -1,0 +1,390 @@
+你记得的应该是 **Cortical Labs**，另外还有一家叫 **FinalSpark** 的公司也在做类似方向。
+
+## 1. Cortical Labs：让培养的神经元直接连接电脑
+
+![Image](https://images.openai.com/static-rsc-4/QyY0NN6GJPgAnDfU8iu-y9QXcJ-5xQLP5nSIbOYrqMW3A0WQH5OBCZ2ZlUE7wcPD8wLW1fi5j1aavF-IKBe4JUdYl7yNiMBXLHA9LRMYYBeEB1y3vniiRZOEWSQ2OCtVFMj5WVNWeps9Vat5usHxEOnJsuMx8Do4Qmgj5yLHqTb8wIUR8ke80gMpLeqYWBDe?purpose=fullsize)
+
+![Image](https://images.openai.com/static-rsc-4/trm6tPCB2E2UrbANmi_l0KdqZuQFP0paZD9KgkCzomaIAq3OteMEurAVHDG25rA24HyvOa2FKzUStGmPghfGgWFE1dVf6T_S3C82PsiFFYqT53at8OIjCIVim_xYct2QVmR9OpQYWCoJa015ZFSBekScUVZAJSr72MDNpuJT7_b_NAZylQHa_g_Q5OUOk511?purpose=fullsize)
+
+![Image](https://images.openai.com/static-rsc-4/up7R-PW0M78RBrFUmhNQh1jOTiZWUQ9s0U0f1KHK141x_SPpVcMj7q0rq1iY_fu-gLlDMPBxe6cilIvOzoS_XYV6Q8rIpdpOrkLfMcXrtjTAZzXBs2JLJTTCFzJ1eXtr_q3ShubF4-AvOAfq6TVdTAnatodcqJBs6ji6kWDiol-jAw8E8BRfEm4YsRjzGZVC?purpose=fullsize)
+
+![Image](https://images.openai.com/static-rsc-4/i26OLlIT5z_NrSMA0UchPOjaQE-mCWud0Fz6eVlguorAbqvxSELDdIjZfthQGxvg5YcbxoajAv6g9lZoaucOrMsJUGCnpWU0YHN7VfyhcFT-9HDScHVkDaBwFeT4A2aZ8o9yr_WvrW9XpRl8QL_8zCI0Evqmc7rTHdRvLQoyRA_ew7htz84S921rWdFQGPRH?purpose=fullsize)
+
+![Image](https://images.openai.com/static-rsc-4/fSkdKbvxEzxgB9hKUBfaPt7jcmsYarTTVHTeH_nzqr9NC5GxUagbb6klSqcTmLEuaStz_4IQ8d2BPp-OCM0JXS0m4xZlMw1TAN9rRL4mdtcbvAdG97Zr2yHNPDl_OWRDbmiBxK3a6TIraquJ4BsUpquIBottva0hWDEeVxgvqxpsI8sWsxrVtSb7ZbSJ4_h-?purpose=fullsize)
+
+Cortical Labs 最著名的项目叫 **DishBrain**。
+
+他们把：
+
+* 人类诱导多能干细胞分化得到的神经元；
+* 或小鼠神经元；
+* 培养在带有大量微电极的芯片上；
+
+然后通过电极实现双向通信：
+
+$$
+\text{计算机环境}
+\rightarrow
+\text{电刺激}
+\rightarrow
+\text{活神经元网络}
+\rightarrow
+\text{记录神经元放电}
+\rightarrow
+\text{计算机动作}
+$$
+
+2022 年，他们发表研究显示，这种培养神经元网络可以在闭环环境中学习玩简化版 **Pong**。研究中使用了约 80 万个培养的神经细胞，并通过电极向神经元输入球和球拍的位置，再根据神经元输出控制球拍。([University College London][1])
+
+这里的“训练”不是像训练深度学习模型那样直接修改权重矩阵，而是：
+
+1. 给神经元输入刺激；
+2. 读取神经元产生的放电模式；
+3. 将放电映射成动作；
+4. 正确行为给予有结构的反馈；
+5. 错误行为给予无序或不利刺激；
+6. 神经网络通过自身的突触可塑性逐渐改变行为。
+
+可以抽象为：
+
+$$
+\text{刺激}
+\rightarrow
+\text{神经活动}
+\rightarrow
+\text{反馈}
+\rightarrow
+\text{突触可塑性}
+\rightarrow
+\text{行为变化}
+$$
+
+这就是所谓的 **Synthetic Biological Intelligence，合成生物智能**。
+
+---
+
+## 2. 现在已经有商业化设备：CL1
+
+Cortical Labs 后来把这套技术产品化为 **CL1 Biological Computer**。
+
+它并不是一个完整培养出来的“迷你人脑”，而是：
+
+> 一层培养在硅芯片上的活神经元网络 + 营养液/生命维持系统 + 电刺激和电记录接口 + 软件环境。
+
+官方称其为可通过代码部署的生物计算机。神经元生长在定制芯片上，芯片同时负责：
+
+* 维持神经元生存；
+* 向神经元发送电刺激；
+* 记录神经元电活动；
+* 与模拟环境建立闭环；
+* 通过软件 API 让研究者与神经网络交互。([Cortical Labs][2])
+
+它的工作模式类似：
+
+```text
+Python / 软件环境
+       ↓
+输入编码器
+       ↓
+电极刺激培养神经元
+       ↓
+神经元网络自行处理
+       ↓
+多电极阵列记录 spike
+       ↓
+输出解码器
+       ↓
+游戏 / 控制系统 / 实验结果
+```
+
+2026 年还出现了让约 20 万个活人类神经元组成的 CL1 系统演示运行 **DOOM** 的报道，但这仍然属于概念验证和研究平台，不是一个能够像人一样自由玩游戏的完整大脑。([Tom's Hardware][3])
+
+---
+
+## 3. FinalSpark：更接近你说的“培养脑类器官，然后远程训练”
+
+另一家很可能就是 **FinalSpark**。
+
+它的方向叫：
+
+> **Organoid Intelligence，类器官智能**
+
+他们使用的是由人类干细胞培养出来的 **脑类器官（brain organoids）**，而不是仅仅一层二维神经元。
+
+脑类器官通常包含：
+
+* 多种神经元；
+* 部分胶质细胞；
+* 自发神经活动；
+* 一定程度的神经网络结构；
+* 发育过程中的突触形成和重塑。
+
+FinalSpark 建立了 **Neuroplatform**，通过：
+
+* 电刺激；
+* 电活动记录；
+* 化学刺激；
+* 长时间培养；
+* 远程 API；
+
+让研究人员可以通过 Python 等方式远程向脑类器官输入信号并读取输出。相关综述提到，FinalSpark 已经向研究机构提供远程访问脑类器官的实验平台。([科学直接][4])
+
+其结构大致是：
+
+```text
+远程 Python 程序
+       ↓
+Neuroplatform
+       ↓
+电刺激 / 化学刺激
+       ↓
+脑类器官
+       ↓
+电生理记录
+       ↓
+反馈给程序
+```
+
+FinalSpark 更偏向：
+
+* 研究脑类器官如何学习；
+* 研究突触可塑性；
+* 研究神经退行性疾病；
+* 药物筛选；
+* 神经调质对网络的影响；
+* 研究“类器官是否能作为计算介质”。
+
+---
+
+## 4. 两家公司有什么区别？
+
+| 项目        | Cortical Labs   | FinalSpark      |
+| --------- | --------------- | --------------- |
+| 主要材料      | 培养神经元网络         | 脑类器官            |
+| 典型形态      | 二维神经元培养层        | 三维脑组织           |
+| 著名项目      | DishBrain、CL1   | Neuroplatform   |
+| 重点        | 生物计算、任务学习、商业化硬件 | 类器官智能、远程实验、神经科学 |
+| 输入输出      | 主要是电刺激和电记录      | 电刺激、电记录，也探索化学调控 |
+| 是否完整大脑    | 不是              | 也不是             |
+| 是否有完整人脑结构 | 没有              | 只有部分简化发育结构      |
+| 是否能像人一样思考 | 不能这样理解          | 不能这样理解          |
+
+---
+
+## 5. 他们究竟是怎么“训练”培养神经元的？
+
+关键是利用神经元自身的可塑性，而不是像 GPU 神经网络那样直接访问每个突触权重。
+
+假设要训练它控制一个虚拟球拍。
+
+### 输入编码
+
+球在屏幕左边：
+
+$$
+\text{刺激电极组 A}
+$$
+
+球在屏幕右边：
+
+$$
+\text{刺激电极组 B}
+$$
+
+球接近球拍：
+
+$$
+\text{刺激电极组 C}
+$$
+
+不同空间位置被编码成不同的电刺激模式。
+
+### 输出解码
+
+假设：
+
+* 电极区域 1 的活动 → 球拍向上；
+* 电极区域 2 的活动 → 球拍向下；
+* 电极区域 3 的活动 → 不动作。
+
+### 反馈
+
+如果动作有利于任务：
+
+* 给予稳定、有规律的反馈；
+* 或特定奖励刺激。
+
+如果动作不利：
+
+* 给予不可预测、无结构的刺激；
+* 使当前神经活动模式变得不稳定。
+
+于是网络通过自身的：
+
+* STDP；
+* 短期突触可塑性；
+* 长期突触增强/减弱；
+* 神经调质影响；
+* 网络状态重组；
+
+逐渐形成更有利于任务的活动模式。
+
+因此它更像：
+
+$$
+\text{环境反馈}
+\rightarrow
+\text{生物网络自组织}
+$$
+
+而不是：
+
+$$
+\text{梯度下降}
+\rightarrow
+\text{更新显式权重矩阵}
+$$
+
+---
+
+## 6. 这和你前面研究的 SNN 有什么本质区别？
+
+可以直接对照：
+
+### 人工 SNN
+
+```text
+神经元模型
++ 人工突触
++ 数值权重
++ 数值积分
++ STDP / surrogate gradient
+```
+
+### 生物神经元计算机
+
+```text
+真实神经元
++ 真实树突和轴突
++ 真实突触
++ 真实离子通道
++ 真实神经递质
++ 真实突触可塑性
++ 电极接口
+```
+
+SNN 是在计算机中模拟：
+
+$$
+V_i(t), w_{ij}(t), s_i(t)
+$$
+
+而生物计算机直接让真实细胞完成这些过程。
+
+人工 SNN 中你必须手动定义：
+
+* 膜时间常数；
+* 阈值；
+* 突触权重；
+* 兴奋/抑制；
+* STDP 规则；
+* 多巴胺调制；
+* 突触延迟。
+
+但在生物培养系统中，这些机制由细胞自身完成。
+
+---
+
+## 7. 不过它不是“培养一个完整大脑”
+
+目前这类系统有几个根本限制：
+
+### 不是完整脑结构
+
+培养神经元通常没有：
+
+* 完整皮层分层；
+* 丘脑输入；
+* 脑干调节；
+* 血管系统；
+* 完整感觉器官；
+* 身体反馈；
+* 正常发育环境。
+
+### 神经元数量仍然很少
+
+人脑约：
+
+$$
+8.6\times 10^{10}
+$$
+
+而这些系统通常是：
+
+$$
+10^5\sim10^6
+$$
+
+量级，差距仍然极大。
+
+### 输入输出通道非常有限
+
+真实视觉系统有数百万级视网膜输入，而培养芯片可能只有几十到几百个有效电极通道。
+
+所以当前更准确的描述是：
+
+> **一个具有真实生物神经动力学和可塑性的活体神经网络计算单元。**
+
+而不是“一个被培养出来的小人脑”。
+
+---
+
+## 8. 这个领域真正有意思的地方
+
+它可能不只是为了替代 GPU，而是有三个重要方向。
+
+### ① 研究学习机制
+
+例如：
+
+* 神经元如何在极少样本下学习；
+* STDP 是否足以形成复杂行为；
+* 多巴胺如何改变网络；
+* 神经网络如何自发形成内部表征；
+* 生物网络是否存在不同于反向传播的学习机制。
+
+### ② 药物筛选
+
+可以观察药物是否改变：
+
+* 放电频率；
+* 网络同步；
+* 突触可塑性；
+* 学习速度；
+* 神经网络稳定性。
+
+例如测试：
+
+* 抗癫痫药；
+* 神经退行性疾病药物；
+* 精神疾病相关药物；
+* 神经毒性化合物。
+
+### ③ 生物计算
+
+真实神经网络可能具有：
+
+* 极高的能量效率；
+* 强大的在线适应能力；
+* 少样本学习；
+* 噪声环境下的鲁棒性；
+* 自组织能力。
+
+但目前还不能证明它们在通用计算上已经超过 GPU 或现代 AI。
+
+**你记得的最可能就是 Cortical Labs 的 DishBrain；如果你记得的是“脑类器官通过互联网/API 被远程训练”，那更可能是 FinalSpark。**
+
+[1]: https://www.ucl.ac.uk/news/2022/oct/human-brain-cells-dish-learn-play-pong?utm_source=chatgpt.com "Human brain cells in a dish learn to play Pong | UCL News"
+[2]: https://corticallabs.com/?utm_source=chatgpt.com "Cortical Labs"
+[3]: https://www.tomshardware.com/tech-industry/artificial-intelligence/200-000-living-human-neurons-on-a-microchip-demonstrated-playing-doom-cortical-labs-cl1-video-shows-the-gameplay-and-explains-how-the-neurons-learn-the-game?utm_source=chatgpt.com "'200,000 living human neurons' on a microchip demonstrated playing Doom - Cortical Labs CL1 video shows the gameplay and explains how the neurons learn the game"
+[4]: https://www.sciencedirect.com/org/science/article/pii/S1438887126005480?utm_source=chatgpt.com "Biocomputing: Beyond the Hype - ScienceDirect"
